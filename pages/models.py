@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.utils.text import slugify
 
 
-class PageData(models.Model):  # pylint: disable=too-many-instance-attributes
+class PageData(models.Model):
     """Prototype pages for Clients"""
 
     client_code = models.CharField(max_length=60, null=False)
@@ -19,13 +19,13 @@ class PageData(models.Model):  # pylint: disable=too-many-instance-attributes
         kwargs = {'slug': self.slug,
                   'pk': self.id
                   }
-        return reverse('info:page-detail', kwargs=kwargs)
+        return reverse('pages:pages-detail', kwargs=kwargs)
 
     def save(self, *args, **kwargs):
         """Creates and adds url slug.
         Resizes and saves images."""
         slug_value = self.title
-        self.slug_en = slugify(slug_value, allow_unicode=True)
+        self.slug = slugify(slug_value, allow_unicode=True)
 
         super().save(*args, **kwargs)
 
